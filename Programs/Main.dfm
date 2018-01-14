@@ -3,7 +3,7 @@ object MainFRM: TMainFRM
   Top = 0
   Caption = 'MainFRM'
   ClientHeight = 225
-  ClientWidth = 405
+  ClientWidth = 649
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,6 +18,53 @@ object MainFRM: TMainFRM
     Top = 97
     Width = 320
     Height = 120
+    Selected.Strings = (
+      'SERIAL_NUMBER'#9'10'#9'SERIAL_NUMBER'
+      'SERIAL_QB'#9'10'#9'SERIAL_QB'
+      'FK_COMPANY_SERIAL'#9'10'#9'FK_COMPANY_SERIAL'
+      'LAST_NAME'#9'30'#9'LAST_NAME'
+      'FIRST_NAME'#9'30'#9'FIRST_NAME'
+      'NATIONAL_ID'#9'20'#9'NATIONAL_ID'
+      'NICKNAME'#9'30'#9'NICKNAME'
+      'OCCUPATION'#9'160'#9'OCCUPATION'
+      'PHONE_MOBILE'#9'15'#9'PHONE_MOBILE'
+      'PHONE_FIXED'#9'15'#9'PHONE_FIXED'
+      'PHONE_ALTERNATE'#9'15'#9'PHONE_ALTERNATE'
+      'FAX'#9'15'#9'FAX'
+      'EMAIL'#9'160'#9'EMAIL'
+      'EMAIL_2'#9'10'#9'EMAIL_2'
+      'ADDRESS'#9'160'#9'ADDRESS'
+      'ADDRESS_STREET'#9'80'#9'ADDRESS_STREET'
+      'ADDRESS_POST_CODE'#9'30'#9'ADDRESS_POST_CODE'
+      'ADDRESS_CITY'#9'30'#9'ADDRESS_CITY'
+      'ADDRESS_DISTRICT'#9'30'#9'ADDRESS_DISTRICT'
+      'DATE_STARTED'#9'10'#9'DATE_STARTED'
+      'DATE_BIRTH'#9'10'#9'DATE_BIRTH'
+      'DATE_USER'#9'10'#9'DATE_USER'
+      'LIST_SOURCE'#9'160'#9'LIST_SOURCE'
+      'FACEBOOK'#9'160'#9'FACEBOOK'
+      'WEBSITE'#9'160'#9'WEBSITE'
+      'TWITTER'#9'160'#9'TWITTER'
+      'STATUS_ACTIVE'#9'1'#9'STATUS_ACTIVE'
+      'SEX'#9'1'#9'SEX'
+      'IS_COMPANY'#9'1'#9'IS_COMPANY'
+      'COMPANY_OWNER'#9'160'#9'COMPANY_OWNER'
+      'COMPANY_CONTACT'#9'160'#9'COMPANY_CONTACT'
+      'COMPANY_REGISTRATION_DATE'#9'10'#9'COMPANY_REGISTRATION_DATE'
+      'PHONE_CONTACT'#9'15'#9'PHONE_CONTACT'
+      'COMPANY_CONTACT_FIRST'#9'30'#9'COMPANY_CONTACT_FIRST'
+      'COMPANY_CONTACT_LAST'#9'30'#9'COMPANY_CONTACT_LAST'
+      'COMPANY_OWNER_REG'#9'30'#9'COMPANY_OWNER_REG'
+      'COMPANY_CONTACT_PHONE'#9'15'#9'COMPANY_CONTACT_PHONE'
+      'COMPANY_CONTACT_EMAIL'#9'50'#9'COMPANY_CONTACT_EMAIL'
+      'COMPANY_CONTACT_FAX'#9'15'#9'COMPANY_CONTACT_FAX'
+      'COMPANY_SOCIAL_SEC'#9'20'#9'COMPANY_SOCIAL_SEC'
+      'COMPANY_EMPLOYEES'#9'10'#9'COMPANY_EMPLOYEES'
+      'PHONE_MOBILE_2'#9'15'#9'PHONE_MOBILE_2'
+      'LINKED_IN'#9'30'#9'LINKED_IN'
+      'JOB'#9'50'#9'JOB'
+      'IS_SAFE_COMPANY'#9'1'#9'IS_SAFE_COMPANY'
+      'COMPANY_OWNER_ID'#9'30'#9'COMPANY_OWNER_ID')
     IniAttributes.Delimiter = ';;'
     IniAttributes.UnicodeIniFile = False
     TitleColor = clBtnFace
@@ -43,13 +90,28 @@ object MainFRM: TMainFRM
     Color = clBtnFace
     DitherColor = clWhite
     DitherStyle = wwdsDither
-    NumGlyphs = 0
     ShadeStyle = wwbsNormal
     TabOrder = 1
-    TabStop = True
     TextOptions.Alignment = taCenter
     TextOptions.VAlignment = vaVCenter
     OnClick = wwButton1Click
+  end
+  object wwButton2: TwwButton
+    Left = 432
+    Top = 144
+    Width = 75
+    Height = 25
+    Caption = 'wwButton2'
+    Color = clBtnFace
+    DitherColor = clWhite
+    DitherStyle = wwdsDither
+    NumGlyphs = 0
+    ShadeStyle = wwbsNormal
+    TabOrder = 2
+    TabStop = True
+    TextOptions.Alignment = taCenter
+    TextOptions.VAlignment = vaVCenter
+    OnClick = wwButton2Click
   end
   object IBCDataSource1: TIBCDataSource
     DataSet = PersonSQL

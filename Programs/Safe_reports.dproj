@@ -100,12 +100,17 @@
             <Form>MainFRM</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="G_KyrSQL.pas"/>
         <DCCReference Include="U_Database.pas">
             <Form>U_databaseFRM</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="G_KyrSQL.pas"/>
+        <DCCReference Include="R_word_issonos_1.pas">
+            <Form>R_Word_issonos_1FRM</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="G_generalProcs.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
