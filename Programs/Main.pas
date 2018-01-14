@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, vcl.wwdbigrd, vcl.wwdbgrid,
-  Data.DB, MemDS, DBAccess, IBC, vcl.wwbutton, G_generalProcs;
+  Data.DB, MemDS, DBAccess, IBC, vcl.wwbutton;
 
 type
   TMainFRM = class(TForm)
@@ -29,7 +29,7 @@ implementation
 
 {$R *.dfm}
 
-uses U_Database, G_KyrSQL, R_word_issonos_1;
+uses U_Database, G_KyrSQL, R_word_issonos_1, G_generalProcs;
 
 procedure TMainFRM.wwButton1Click(Sender: TObject);
 begin

@@ -90,6 +90,7 @@ object MainFRM: TMainFRM
     Color = clBtnFace
     DitherColor = clWhite
     DitherStyle = wwdsDither
+    NumGlyphs = 0
     ShadeStyle = wwbsNormal
     TabOrder = 1
     TextOptions.Alignment = taCenter
@@ -105,10 +106,8 @@ object MainFRM: TMainFRM
     Color = clBtnFace
     DitherColor = clWhite
     DitherStyle = wwdsDither
-    NumGlyphs = 0
     ShadeStyle = wwbsNormal
     TabOrder = 2
-    TabStop = True
     TextOptions.Alignment = taCenter
     TextOptions.VAlignment = vaVCenter
     OnClick = wwButton2Click
