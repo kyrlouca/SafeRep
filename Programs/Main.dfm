@@ -2,7 +2,7 @@ object MainFRM: TMainFRM
   Left = 0
   Top = 0
   Caption = 'MainFRM'
-  ClientHeight = 225
+  ClientHeight = 373
   ClientWidth = 649
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -90,7 +90,6 @@ object MainFRM: TMainFRM
     Color = clBtnFace
     DitherColor = clWhite
     DitherStyle = wwdsDither
-    NumGlyphs = 0
     ShadeStyle = wwbsNormal
     TabOrder = 1
     TextOptions.Alignment = taCenter
@@ -106,6 +105,7 @@ object MainFRM: TMainFRM
     Color = clBtnFace
     DitherColor = clWhite
     DitherStyle = wwdsDither
+    NumGlyphs = 0
     ShadeStyle = wwbsNormal
     TabOrder = 2
     TextOptions.Alignment = taCenter

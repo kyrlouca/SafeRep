@@ -29,11 +29,12 @@ implementation
 
 {$R *.dfm}
 
-uses U_Database, G_KyrSQL, R_word_issonos_1, G_generalProcs;
+uses U_Database, G_KyrSQL, R_word_issonos_1, G_generalProcs, R_AnadFIles,
+  S_LoadDocs;
 
 procedure TMainFRM.wwButton1Click(Sender: TObject);
 begin
-ksOpenTables([PersonSQL]);
+ gpShowModal(TS_LoadDocsFRM);
 end;
 
 procedure TMainFRM.wwButton2Click(Sender: TObject);

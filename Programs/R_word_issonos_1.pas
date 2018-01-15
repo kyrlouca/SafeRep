@@ -249,18 +249,15 @@ type
     procedure FormActivate(Sender: TObject);
     procedure RzBitBtn1Click(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
-    procedure ppVariable1Calc(Sender: TObject; var Value: Variant);
     procedure FormCreate(Sender: TObject);
-    procedure ppVariable2Calc(Sender: TObject; var Value: Variant);
     procedure ppVariable3Calc(Sender: TObject; var Value: Variant);
-    procedure TableSQLCalcFields(DataSet: TDataSet);
     procedure PrintRBtnClick(Sender: TObject);
   private
     { Private declarations }
     cn:TIBCConnection;
-  Function FindActionDate(const DateSeminar:TDate;Const isAfter,isDayUnit:Boolean;Const NumberOfUnits:Integer):Tdate;
-  Function CalcDaysLeft():TReminderResult;
-  procedure DisplayFilter;
+  procedure CreatePolyReports(Const SeminarSerial:Integer;Const ReportType:String);
+  function CreateCompleteFolder(Const SeminarSerial:Integer;Const CompanySerial:Integer):String;
+  function CreateOneFolder(Const FolderName:String):Boolean;
 
   public
     { Public declarations }
@@ -269,7 +266,7 @@ type
     IN_HasDate:String;
     IN_DateRef:TDate;
     Procedure PrintTheSeminar();
-    Procedure PrintOnePolyIssonos(Const SeminarSerial:integer; CompanySerial : Integer);
+  procedure PrintOnePolyIssonos(Const SeminarSerial:integer;CompanySerial: Integer;FileName:String);
 
   end;
 
@@ -278,7 +275,7 @@ var
 
 implementation
 
-uses U_Database,  G_KyrSQL;
+uses U_Database,  G_KyrSQL, G_generalProcs;
 
 
 {$R *.DFM}
@@ -310,17 +307,6 @@ begin
 end;
 
 
-procedure TR_Word_issonos_1FRM.ppVariable1Calc(Sender: TObject; var Value: Variant);
-begin
-// value:=vt.FieldByName('DaysCalc').AsInteger;
-end;
-
-procedure TR_Word_issonos_1FRM.ppVariable2Calc(Sender: TObject; var Value: Variant);
-begin
-// value:=vt.FieldByName('ActionDate').AsDateTime;
-
-end;
-
 procedure TR_Word_issonos_1FRM.ppVariable3Calc(Sender: TObject; var Value: Variant);
 begin
    value:=FromDateFLD.Date
@@ -329,48 +315,6 @@ end;
 procedure TR_Word_issonos_1FRM.RzBitBtn1Click(Sender: TObject);
 begin
   close;
-end;
-
-
-
-
-procedure TR_Word_issonos_1FRM.TableSQLCalcFields(DataSet: TDataSet);
-var
-  days:integer;
-begin
-//  Days:= Trunc(Dataset.FieldByName('date_targeted').AsDateTime - IN_DateRef);
-//  Dataset.FieldByName('daysLeft').AsInteger:=days;
-end;
-
-Function TR_Word_issonos_1FRM.CalcDaysLeft():TReminderResult;
-begin
-
-end;
-
-
-
-Function TR_Word_issonos_1FRM.FindActionDate(const DateSeminar:TDate;Const isAfter,isDayUnit:Boolean;Const NumberOfUnits:Integer):Tdate;
-var
-  mySign:Integer;
-  DateReminder:TDate;
-begin
-  if isAfter then
-    mySign:=1
-  else
-    mySign:=-1;
-
-  try
-    if IsDayUnit then
-      DateReminder:= IncDay( DateSeminar, mySign * NumberOfUnits)
-    else
-      DateReminder:= IncMonth( DateSeminar, mySign * NumberOFUnits);
-
-    Result:=Trunc( DateREminder);
-  except
-    result:=EncodeDate(1900,01,01);
-  end;
-
-
 end;
 
 
@@ -384,18 +328,7 @@ end;
 
 procedure TR_Word_issonos_1FRM.PrintRBtnClick(Sender: TObject);
 begin
-// working with person_seminar (the record of each person attending a seminar)
-//for each person take the LATEST of each seminar type
-// how to do that ? join two tables
-// ---the first table is per person grouped by seminar type to get the latest date
-// -- however, this table does not provide the individual SERIAL NUMBER of the seminar type- only the latest date of the groop
-// therefore  we join the first table with another table (without the grouping)
-// the join is performed on the person and the seminar type AND The DATE
-// As a result, we get the indiviual MAX record of each in the table!!
-// in this case, for each person, we get the latest of each seminar type
-// add to that date the number of months after the date completed to find the expiry date!
-
-PrintOnePolyIssonos(130,100003);
+CreatePolyReports(129,'Issonos');
 
 end;
 
@@ -414,7 +347,7 @@ begin
 end;
 
 
-procedure TR_Word_issonos_1FRM.PrintOnePolyIssonos(Const SeminarSerial:integer;CompanySerial: Integer);
+procedure TR_Word_issonos_1FRM.PrintOnePolyIssonos(Const SeminarSerial:integer;CompanySerial: Integer;FileName:String);
 begin
      TableSQL.Close;
      TableSQL.ParamByName('SerialNumber').Value:=CompanySerial;
@@ -424,10 +357,16 @@ begin
      SeminarSQL.ParamByName('SerialNumber').Value:=SeminarSerial;
      SeminarSQL.Open;
 
-     PolyIssonosRPT.Print;
+
+     with PolyIssonosRPT do begin
+       ShowPrintDialog := False;
+        DeviceType := dtPDF;
+        PDFSettings.OpenPDFFile :=false;
+        TextFileName := fileName;
+        Print;
+     end;
 
 end;
-
 
 
 procedure TR_Word_issonos_1FRM.FormActivate(Sender: TObject);
@@ -442,40 +381,143 @@ begin
   cn:=U_databaseFRM.DataConnection;
 end;
 
-procedure TR_Word_issonos_1FRM.DisplayFilter;
+
+procedure TR_Word_issonos_1FRM.CreatePolyReports(Const SeminarSerial:Integer;Const ReportType:String);
 var
-  SeminarSerial:Integer;
-  CompanySerial:Integer;
+I:integer;
+ qr:TksQuery;
+ Compqr:TksQuery;
+ SeminarName:String;
+ str2:string;
+// isPoly:String;
+ CompId,CompName:String;
+ CompSerial:Integer;
+// UseFolder:String;
+// SeminarFolder:String;
+ Path:String;
+ fname:String;
+// fileName:String;
+// param:TParameterRecord;
+
 begin
-TableSQL.Close;
-TableSQL.RestoreSQL;
-//index:=sender.ItemIndex;
-
-  seminarSerial:= SeminarSFLD.lookupTable.FieldByName('serial_number').AsInteger;
-  if (Trim(SeminarSFLD.text)>'') and  (SeminarSerial >0)  then begin
-    TableSQL.AddWhere('seminar_serial = :seminarSerial');
-  end;
-
-  CompanySerial:= CompanySFLD.lookupTable.FieldByName('serial_number').AsInteger;
-  if (Trim(CompanySFLD.text)>'') and  (CompanySerial >0)  then begin
-    TableSQL.AddWhere('company_serial = :CompanySerial');
-  end;
-
-  if TableSQL.FindParam('SeminarSerial')<>nil then begin
-    TableSQL.ParamByName('seminarSerial').Value:=SeminarSerial;
-  end;
-
-  if TableSQL.FindParam('CompanySerial')<>nil then begin
-    TableSQL.ParamByName('CompanySerial').Value:=CompanySerial;
-  end;
 
 
-  TableSQL.Open;
-  if not PersonSQL.Active then
-    PersonSQL.Open;
 
+          str2:=
+          '   select per.serial_number,per.National_id, per.Last_name from'
+          +'          seminar_company semC left outer join'
+          +'          person per on semc.fk_person_serial = per.serial_number'
+          +'  where semC.fk_seminar_serial= :SeminarSerial';
+
+          Compqr:= TksQuery.Create(cn,str2);
+          try
+            CompQR.close;
+            CompQr.ParamByName('SeminarSerial').Value:=SeminarSerial;
+            CompQr.open;
+            while not CompQR.Eof do begin
+              CompId:=CompQR.FieldByName('National_id').AsString;
+              CompName:=CompQR.FieldByName('Last_name').AsString;
+              CompSerial:=CompQR.FieldByName('serial_number').AsInteger;
+
+              path:=CreateCompleteFolder(SeminarSerial,CompSerial);
+              if ReportType ='Issonos' then begin
+                fname:=path+'\'+'╦МТУПО емисвусеис гссомос сгласиас.pdf';
+                if not FileExists(Fname) then begin
+                  ShowMessage(fname);
+                    PrintOnePolyIssonos(SeminarSerial,compSerial,fname);
+                end;
+
+              end else if ReportType ='Ergodotis' then begin
+
+              end;
+              compQR.Next;
+            end;
+          finally
+           CompQr.Free;
+          end;
 
 end;
 
+
+function TR_Word_issonos_1FRM.CreateCompleteFolder(Const SeminarSerial:Integer;Const CompanySerial:Integer):String;
+var
+  qr:TksQuery;
+ CompId,CompName:String;
+ baseFolder:string;
+ UseFolder:String;
+ SeminarFolder:String;
+ PersonFolder:String;
+
+ fname:String;
+ fileName:String;
+ param:TParameterRecord;
+ SeminarName:String;
+ PersonName:String;
+
+begin
+
+  param:=  gpGetGeneralParam(cn,'T00');
+  baseFOlder:=Trim(param.P_String3);
+  if not CreateOneFolder(BaseFOlder) then begin
+    ShowMessage('cannot create'+ BaseFolder);
+    result:='';
+    exit;
+  end;
+
+
+  qr:=TksQuery.Create(cn,'select Seminar_name from Seminar where serial_number = :SeminarSerial');
+  try
+    qr.ParamByName('seminarSerial').Value:=SeminarSerial;
+    qr.Open;
+    if qr.IsEmpty then begin
+      result:='';
+      exit;
+    end;
+    SeminarName:=trim(qr.FieldByName('Seminar_name').AsString);
+    qr.Close;
+  finally
+    qr.free;
+  end;
+
+  SeminarFolder:=baseFOlder+'\'+SeminarName+'_'+intToStr(SeminarSerial);
+  if not CreateOneFolder(SeminarFOlder) then begin
+    ShowMessage('cannot Create Seminar Directory: '+SeminarFolder);
+    result:='';
+    exit;
+  end;
+
+
+  qr:=TksQuery.Create(cn,'select Last_name from Person where serial_number = :PersonSerial');
+  try
+    qr.ParamByName('PersonSerial').Value:=CompanySerial;
+    qr.Open;
+    if qr.IsEmpty then begin
+      result:='';
+      exit;
+    end;
+    PersonName:=trim(qr.FieldByName('Last_name').AsString);
+    qr.Close;
+  finally
+    qr.free;
+  end;
+
+  PersonFolder:=SeminarFolder+'\'+PersonName+'_'+IntToStr(CompanySerial);
+  if not CreateOneFolder(PersonFOlder) then begin
+    ShowMessage('cannot Create Directory for Company: '+PersonFolder);
+    result:='';
+    exit;
+  end;
+  result:=PersonFolder;
+
+end;
+
+function TR_Word_issonos_1FRM.CreateOneFolder(Const FolderName:String):Boolean;
+begin
+  result:=true;
+  if not DirectoryExists(FOlderName) then begin
+    result:= CreateDir(FolderName);
+  end;
+
+end;
 
 end.
