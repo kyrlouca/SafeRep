@@ -22,9 +22,9 @@ type
     Panel1: TPanel;
     Panel3: TPanel;
     Panel4: TPanel;
-    TableSQL: TIBCQuery;
-    TableSRC: TDataSource;
-    TablePIP: TppDBPipeline;
+    CompanySQL: TIBCQuery;
+    CompanySRC: TDataSource;
+    CompanyPIP: TppDBPipeline;
     GroupBox1: TGroupBox;
     PrintRBtn: TBitBtn;
     Panel11: TRzPanel;
@@ -175,43 +175,7 @@ type
     ppDesignLayer14: TppDesignLayer;
     ppImage6: TppImage;
     ppDBText11: TppDBText;
-    TableSQLSERIAL_NUMBER: TIntegerField;
-    TableSQLFK_COMPANY_SERIAL: TIntegerField;
-    TableSQLLAST_NAME: TWideStringField;
-    TableSQLFIRST_NAME: TWideStringField;
-    TableSQLFIRST_LAST_NAME: TWideStringField;
-    TableSQLLAST_FIRST_NAME: TWideStringField;
-    TableSQLNATIONAL_ID: TWideStringField;
-    TableSQLNICKNAME: TWideStringField;
-    TableSQLOCCUPATION: TWideStringField;
-    TableSQLPHONE_MOBILE: TWideStringField;
-    TableSQLPHONE_FIXED: TWideStringField;
-    TableSQLPHONE_ALTERNATE: TWideStringField;
-    TableSQLFAX: TWideStringField;
-    TableSQLEMAIL: TWideStringField;
-    TableSQLEMAIL_2: TSmallintField;
-    TableSQLADDRESS: TWideStringField;
-    TableSQLADDRESS_STREET: TWideStringField;
-    TableSQLADDRESS_POST_CODE: TWideStringField;
-    TableSQLADDRESS_CITY: TWideStringField;
-    TableSQLADDRESS_DISTRICT: TWideStringField;
-    TableSQLDATE_STARTED: TDateField;
-    TableSQLDATE_BIRTH: TDateField;
-    TableSQLDATE_USER: TDateField;
-    TableSQLLIST_SOURCE: TWideStringField;
-    TableSQLFACEBOOK: TWideStringField;
-    TableSQLWEBSITE: TWideStringField;
-    TableSQLTWITTER: TWideStringField;
-    TableSQLSTATUS_ACTIVE: TWideStringField;
-    TableSQLSEX: TWideStringField;
-    TableSQLIS_COMPANY: TWideStringField;
-    TableSQLCOMPANY_OWNER: TWideStringField;
-    TableSQLCOMPANY_CONTACT: TWideStringField;
-    TableSQLCOMPANY_REGISTRATION_DATE: TDateField;
-    TableSQLPHONE_CONTACT: TWideStringField;
     ppDBText12: TppDBText;
-    TableSQLCOMPANY_OWNER_ID: TWideStringField;
-    TableSQLCOMPANY_OWENER_REG: TWideStringField;
     ppDBText13: TppDBText;
     ppDBText14: TppDBText;
     SeminarSQL: TIBCQuery;
@@ -243,6 +207,156 @@ type
     SeminarSQLSPECIFICATION_NUMBER: TWideStringField;
     SeminarSRC: TDataSource;
     SeminarPIP: TppDBPipeline;
+    PoliErgodotiRPT: TppReport;
+    ppDetailBand7: TppDetailBand;
+    ppSubReport7: TppSubReport;
+    ppChildReport7: TppChildReport;
+    ppDetailBand8: TppDetailBand;
+    ppDBText15: TppDBText;
+    ppDBText16: TppDBText;
+    ppDBText17: TppDBText;
+    ppPageStyle7: TppPageStyle;
+    ppImage7: TppImage;
+    ppDesignLayers9: TppDesignLayers;
+    ppDesignLayer15: TppDesignLayer;
+    ppDesignLayer16: TppDesignLayer;
+    ppSubReport8: TppSubReport;
+    ppChildReport8: TppChildReport;
+    ppDetailBand9: TppDetailBand;
+    ppPageStyle8: TppPageStyle;
+    ppImage8: TppImage;
+    ppDesignLayers10: TppDesignLayers;
+    ppDesignLayer17: TppDesignLayer;
+    ppDesignLayer18: TppDesignLayer;
+    ppSubReport9: TppSubReport;
+    ppChildReport9: TppChildReport;
+    ppDetailBand10: TppDetailBand;
+    ppPageStyle9: TppPageStyle;
+    ppImage9: TppImage;
+    ppDesignLayers11: TppDesignLayers;
+    ppDesignLayer19: TppDesignLayer;
+    ppDesignLayer20: TppDesignLayer;
+    ppPageStyle12: TppPageStyle;
+    ppDesignLayers14: TppDesignLayers;
+    ppDesignLayer25: TppDesignLayer;
+    ppDesignLayer26: TppDesignLayer;
+    ppParameterList2: TppParameterList;
+    ppDBText21: TppDBText;
+    ppDBText22: TppDBText;
+    ppDBText23: TppDBText;
+    ppDBText24: TppDBText;
+    ppDBText25: TppDBText;
+    ppDBText26: TppDBText;
+    ppDBText27: TppDBText;
+    ppDBText28: TppDBText;
+    ppDBText29: TppDBText;
+    ppDBText31: TppDBText;
+    ppDBText32: TppDBText;
+    ppDBText33: TppDBText;
+    PersonSQLCOMPANY_OWNER_ID: TWideStringField;
+    CompanySQLSERIAL_NUMBER: TIntegerField;
+    CompanySQLSERIAL_QB: TIntegerField;
+    CompanySQLFK_COMPANY_SERIAL: TIntegerField;
+    CompanySQLLAST_NAME: TWideStringField;
+    CompanySQLFIRST_NAME: TWideStringField;
+    CompanySQLNATIONAL_ID: TWideStringField;
+    CompanySQLNICKNAME: TWideStringField;
+    CompanySQLOCCUPATION: TWideStringField;
+    CompanySQLPHONE_MOBILE: TWideStringField;
+    CompanySQLPHONE_FIXED: TWideStringField;
+    CompanySQLPHONE_ALTERNATE: TWideStringField;
+    CompanySQLFAX: TWideStringField;
+    CompanySQLEMAIL: TWideStringField;
+    CompanySQLEMAIL_2: TSmallintField;
+    CompanySQLADDRESS: TWideStringField;
+    CompanySQLADDRESS_STREET: TWideStringField;
+    CompanySQLADDRESS_POST_CODE: TWideStringField;
+    CompanySQLADDRESS_CITY: TWideStringField;
+    CompanySQLADDRESS_DISTRICT: TWideStringField;
+    CompanySQLDATE_STARTED: TDateField;
+    CompanySQLDATE_BIRTH: TDateField;
+    CompanySQLDATE_USER: TDateField;
+    CompanySQLLIST_SOURCE: TWideStringField;
+    CompanySQLFACEBOOK: TWideStringField;
+    CompanySQLWEBSITE: TWideStringField;
+    CompanySQLTWITTER: TWideStringField;
+    CompanySQLSTATUS_ACTIVE: TWideStringField;
+    CompanySQLSEX: TWideStringField;
+    CompanySQLIS_COMPANY: TWideStringField;
+    CompanySQLCOMPANY_OWNER: TWideStringField;
+    CompanySQLCOMPANY_CONTACT: TWideStringField;
+    CompanySQLCOMPANY_REGISTRATION_DATE: TDateField;
+    CompanySQLPHONE_CONTACT: TWideStringField;
+    CompanySQLCOMPANY_CONTACT_FIRST: TWideStringField;
+    CompanySQLCOMPANY_CONTACT_LAST: TWideStringField;
+    CompanySQLCOMPANY_OWNER_REG: TWideStringField;
+    CompanySQLCOMPANY_CONTACT_PHONE: TWideStringField;
+    CompanySQLCOMPANY_CONTACT_EMAIL: TWideStringField;
+    CompanySQLCOMPANY_CONTACT_FAX: TWideStringField;
+    CompanySQLCOMPANY_SOCIAL_SEC: TWideStringField;
+    CompanySQLCOMPANY_EMPLOYEES: TIntegerField;
+    CompanySQLPHONE_MOBILE_2: TWideStringField;
+    CompanySQLLINKED_IN: TWideStringField;
+    CompanySQLJOB: TWideStringField;
+    CompanySQLIS_SAFE_COMPANY: TWideStringField;
+    CompanySQLCOMPANY_OWNER_ID: TWideStringField;
+    ppDBText34: TppDBText;
+    ppDBText35: TppDBText;
+    ppDBText36: TppDBText;
+    SafeCompanySQL: TIBCQuery;
+    SafeCompanySQLSERIAL_NUMBER: TIntegerField;
+    SafeCompanySQLSERIAL_QB: TIntegerField;
+    SafeCompanySQLFK_COMPANY_SERIAL: TIntegerField;
+    SafeCompanySQLLAST_NAME: TWideStringField;
+    SafeCompanySQLFIRST_NAME: TWideStringField;
+    SafeCompanySQLNATIONAL_ID: TWideStringField;
+    SafeCompanySQLNICKNAME: TWideStringField;
+    SafeCompanySQLOCCUPATION: TWideStringField;
+    SafeCompanySQLPHONE_MOBILE: TWideStringField;
+    SafeCompanySQLPHONE_FIXED: TWideStringField;
+    SafeCompanySQLPHONE_ALTERNATE: TWideStringField;
+    SafeCompanySQLFAX: TWideStringField;
+    SafeCompanySQLEMAIL: TWideStringField;
+    SafeCompanySQLEMAIL_2: TSmallintField;
+    SafeCompanySQLADDRESS: TWideStringField;
+    SafeCompanySQLADDRESS_STREET: TWideStringField;
+    SafeCompanySQLADDRESS_POST_CODE: TWideStringField;
+    SafeCompanySQLADDRESS_CITY: TWideStringField;
+    SafeCompanySQLADDRESS_DISTRICT: TWideStringField;
+    SafeCompanySQLDATE_STARTED: TDateField;
+    SafeCompanySQLDATE_BIRTH: TDateField;
+    SafeCompanySQLDATE_USER: TDateField;
+    SafeCompanySQLLIST_SOURCE: TWideStringField;
+    SafeCompanySQLFACEBOOK: TWideStringField;
+    SafeCompanySQLWEBSITE: TWideStringField;
+    SafeCompanySQLTWITTER: TWideStringField;
+    SafeCompanySQLSTATUS_ACTIVE: TWideStringField;
+    SafeCompanySQLSEX: TWideStringField;
+    SafeCompanySQLIS_COMPANY: TWideStringField;
+    SafeCompanySQLCOMPANY_OWNER: TWideStringField;
+    SafeCompanySQLCOMPANY_CONTACT: TWideStringField;
+    SafeCompanySQLCOMPANY_REGISTRATION_DATE: TDateField;
+    SafeCompanySQLPHONE_CONTACT: TWideStringField;
+    SafeCompanySQLCOMPANY_CONTACT_FIRST: TWideStringField;
+    SafeCompanySQLCOMPANY_CONTACT_LAST: TWideStringField;
+    SafeCompanySQLCOMPANY_OWNER_REG: TWideStringField;
+    SafeCompanySQLCOMPANY_CONTACT_PHONE: TWideStringField;
+    SafeCompanySQLCOMPANY_CONTACT_EMAIL: TWideStringField;
+    SafeCompanySQLCOMPANY_CONTACT_FAX: TWideStringField;
+    SafeCompanySQLCOMPANY_SOCIAL_SEC: TWideStringField;
+    SafeCompanySQLCOMPANY_EMPLOYEES: TIntegerField;
+    SafeCompanySQLPHONE_MOBILE_2: TWideStringField;
+    SafeCompanySQLLINKED_IN: TWideStringField;
+    SafeCompanySQLJOB: TWideStringField;
+    SafeCompanySQLIS_SAFE_COMPANY: TWideStringField;
+    SafeCompanySQLCOMPANY_OWNER_ID: TWideStringField;
+    SafeCompany: TDataSource;
+    SafePip: TppDBPipeline;
+    ppDBText30: TppDBText;
+    ppDBText37: TppDBText;
+    ppDBText38: TppDBText;
+    ppDBText39: TppDBText;
+    ppDBText40: TppDBText;
     procedure BitBtn2Click(Sender: TObject);
     procedure ppReport1PreviewFormCreate(Sender: TObject);
     procedure ppLabel10GetText(Sender: TObject; var Text: String);
@@ -267,6 +381,7 @@ type
     IN_DateRef:TDate;
     Procedure PrintTheSeminar();
   procedure PrintOnePolyIssonos(Const SeminarSerial:integer;CompanySerial: Integer;FileName:String);
+  procedure PrintOnePolyErgodoti(Const SeminarSerial:integer;CompanySerial: Integer;FileName:String);
 
   end;
 
@@ -328,7 +443,8 @@ end;
 
 procedure TR_Word_issonos_1FRM.PrintRBtnClick(Sender: TObject);
 begin
-CreatePolyReports(129,'Issonos');
+//CreatePolyReports(129,'Issonos');
+CreatePolyReports(129,'Ergodotis');
 
 end;
 
@@ -349,9 +465,9 @@ end;
 
 procedure TR_Word_issonos_1FRM.PrintOnePolyIssonos(Const SeminarSerial:integer;CompanySerial: Integer;FileName:String);
 begin
-     TableSQL.Close;
-     TableSQL.ParamByName('SerialNumber').Value:=CompanySerial;
-     TableSQL.Open;
+     CompanySQL.Close;
+     CompanySQL.ParamByName('SerialNumber').Value:=CompanySerial;
+     CompanySQL.Open;
 
      SeminarSQL.Close;
      SeminarSQL.ParamByName('SerialNumber').Value:=SeminarSerial;
@@ -369,9 +485,35 @@ begin
 end;
 
 
+
+procedure TR_Word_issonos_1FRM.PrintOnePolyErgodoti(Const SeminarSerial:integer;CompanySerial: Integer;FileName:String);
+begin
+     CompanySQL.Close;
+     CompanySQL.ParamByName('SerialNumber').Value:=CompanySerial;
+     CompanySQL.Open;
+
+     ksOpenTables([SafeCompanySQL]);
+
+     SeminarSQL.Close;
+     SeminarSQL.ParamByName('SerialNumber').Value:=SeminarSerial;
+     SeminarSQL.Open;
+
+
+     with PoliErgodotiRPT do begin
+       ShowPrintDialog := False;
+        DeviceType := dtPDF;
+        PDFSettings.OpenPDFFile :=false;
+        TextFileName := fileName;
+        Print;
+     end;
+
+end;
+
+
+
 procedure TR_Word_issonos_1FRM.FormActivate(Sender: TObject);
 begin
-ksOpenTables([TableSQL,PersonSQL]);
+ksOpenTables([CompanySQL,PersonSQL]);
 
 end;
 
@@ -428,6 +570,11 @@ begin
                 end;
 
               end else if ReportType ='Ergodotis' then begin
+                fname:=path+'\'+'аитгсг еяцодотг циа суллетовг йаи еноусиодотгсг циа йатабокг воягцглатос.pdf';
+                if not FileExists(Fname) then begin
+//                  ShowMessage(fname);
+                    PrintOnePolyErgodoti(SeminarSerial,compSerial,fname);
+                end;
 
               end;
               compQR.Next;
