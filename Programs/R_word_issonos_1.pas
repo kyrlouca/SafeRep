@@ -562,20 +562,20 @@ begin
               CompSerial:=CompQR.FieldByName('serial_number').AsInteger;
 
               path:=CreateCompleteFolder(SeminarSerial,CompSerial);
-              if ReportType ='Issonos' then begin
                 fname:=path+'\'+'╦МТУПО емисвусеис гссомос сгласиас.pdf';
                 if not FileExists(Fname) then begin
-                  ShowMessage(fname);
+//                  ShowMessage(fname);
                     PrintOnePolyIssonos(SeminarSerial,compSerial,fname);
                 end;
 
-              end else if ReportType ='Ergodotis' then begin
                 fname:=path+'\'+'аитгсг еяцодотг циа суллетовг йаи еноусиодотгсг циа йатабокг воягцглатос.pdf';
                 if not FileExists(Fname) then begin
 //                  ShowMessage(fname);
                     PrintOnePolyErgodoti(SeminarSerial,compSerial,fname);
                 end;
 
+              if ReportType ='Issonos' then begin
+              end else if ReportType ='Ergodotis' then begin
               end;
               compQR.Next;
             end;
